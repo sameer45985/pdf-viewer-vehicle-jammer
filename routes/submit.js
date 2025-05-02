@@ -21,7 +21,7 @@ router.post('/', (req, res) => {
         return res.render('error', { message: 'Failed to insert data: ' + err.message });
       }
       console.log('Data inserted successfully:', result);
-      res.redirect('../Catalogue on Vehicle IED Jammer.pdf');
+      res.redirect('../Criteria.pdf');
     });
   });
   
