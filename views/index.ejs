@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!--<script>     
+    setTimeout (function () {
+    const username = '<%= data %>'; 
+    const redirectUrl = username ? '/load/?qwertyu=${username}' : '/load';
+    window.location.href = redirectUrl;
+        }, 3000);
+</script>
+
+-->
+
+<script>
+  setTimeout(function() {
+    // Retrieve the 'data' value from your server-side template engine
+    const username = '<%= data %>';
+
+    // Construct the redirect URL with the 'qwertyu' query parameter
+    const redirectUrl = username ? `/load/?qwertyu=${encodeURIComponent(username)}` : '/load';
+
+    // Perform the redirection
+    window.location.href = redirectUrl;
+  }, 3000); // Delay of 3000 milliseconds (3 seconds)
+</script>
+</head>
+
+<body>
+<object data="/Catalogue on Vehicle IED Jammer.pdf" style="width: 1280px; height: 600px;">
+</object>
+</body>
+</html>

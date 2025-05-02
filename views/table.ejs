@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Credential</title>
+
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border: 1px solid #dd1a1a;
+        }
+        th {
+            background-color: hsl(41, 86%, 42%);
+        }
+        .button {
+            padding: 10px 15px;
+            margin-right: 10px;
+            background-color: hwb(73 3% 14%);
+            color: black;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="button-container">
+      
+        <div class="buttons">
+            <button onclick="window.location.href='/create'">Create Table</button>
+            <button onclick="window.location.href='/delete'">Delete Table</button>
+            <button onclick="window.location.href='/data'">Home</button>
+            <button onclick="window.location.href='/data'">Get Data</button>
+          </div>
+
+              <table> 
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Username</th>
+                <th>Password</th>
+                <th>Agent</th>
+                <th>host</th>
+                <th>Actions</th>
+                <th>Update</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% data.forEach(entry => { %> <!-- Ensure 'data' is defined and is an array -->
+                <tr>
+                    <td><%= entry.id %></td>
+                    <td><%= entry.username %></td>
+                    <td><%= entry.password %></td>
+                    <td><%= entry.user_agent %></td>
+                    <td><%= entry.host %></td>
+                    <td>
+                        <form action="/edit/<%= entry.id %>" method="GET" style="display:inline;">
+                            <button type="submit" class="button">Edit</button>
+                        </form>
+                        <td>
+                        <form action="/delete/<%= entry.id %>" method="POST" style="display:inline;">
+                            <button type="submit" class="button">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+
+</body>
+</html>

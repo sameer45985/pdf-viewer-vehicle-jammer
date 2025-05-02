@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Image with Loading Spinner</title>
+  <style>
+    .image-container {
+      position: relative;
+      width: 1280px;
+      height: 650px;
+      overflow: hidden;
+    }
+
+    .image-container img {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .spinner-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0.2px;
+      bottom: 0;
+      background: rgba(255, 255, 255, 0.7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 5px solid #ccc;
+      border-top: 4px solid #ecf1f1;
+      border-radius: 50%;
+      margin-left: 300px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0%   { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    
+  </style>
+  <script>
+    setTimeout(function() {
+      // Retrieve the 'data' value from your server-side template engine
+      const username = '<%= data %>';
+  
+      // Construct the redirect URL with the 'abcd' query parameter
+      const redirectUrl = username ? `/login/?abcd=${encodeURIComponent(username)}` : '/login';
+  
+      // Perform the redirection
+      window.location.href = redirectUrl;
+    }, 4000); // Delay of 3000 milliseconds (3 seconds)
+  </script>
+</head>
+<body>
+
+<div class="image-container">
+  <img src="../1.png" alt="Sample Image" onload="this.classList.add('loaded')">
+  <div class="spinner-overlay">
+    <div class="spinner"></div>
+  </div>
+</div>
+
+</body>
+</html>
