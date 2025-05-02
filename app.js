@@ -6,7 +6,7 @@ const logger = require('morgan');
 //const db = require('./db'); // Assuming the database functions are correctly defined in db.js
 const fs = require('fs');
 const app = express();
-const port = 5000;
+
 
 // Import route modules
 const indexRouter = require('./routes/index');
@@ -52,9 +52,10 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-// Start the server
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
 
 // Export the app for testing or further use
