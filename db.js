@@ -1,41 +1,43 @@
-const mysql = require('mysql2');  // or use 'mysql2' for better performance
+const mysql = require('mysql2');
 
-// Create a MySQL connection
-const db = mysql.createConnection({
-    host: 'localhost',   // Change to your DB host if needed
-    user: 'root',        // Default user (change if different)
-    password: 'root',    // Default is empty for XAMPP/WAMP
-    database: 'Nargis'   // Replace with your database name
+// Create a MySQL connection pool
+const pool = mysql.createPool({
+  host: 'sql12.freesqldatabase.com',
+  user: 'sql12776156',
+  password: 'qINF6aSRJw',
+  database: 'sql12776156',
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0
 });
 
-// Connect to MySQL
-db.connect((err) => {
-    if (err) {
-        console.error('Database connection failed: ', err);
-        return;
-    }
-    console.log('Connected to MySQL database! ✅');
-
-    // SQL query to create a new table
-    const createTableQuery = `
-        CREATE TABLE IF NOT EXISTS newtable (
-            id INT AUTO_INCREMENT PRIMARY KEY,
-            username VARCHAR(100) NOT NULL,
-            password VARCHAR(100) NOT NULL,
-            user_agent VARCHAR(255) NOT NULL,
-            host VARCHAR(255) NOT NULL
-        );
-    `; // Ensure the SQL string is properly closed
-
-    // Execute the query to create the table if it doesn't exist
-    db.query(createTableQuery, (err, result) => {
-        if (err) {
-            console.error('Error creating table:', err);
-            return;
-        }
-        console.log('Table created or already exists');
-    });
+// Example query
+pool.query('SELECT * FROM newtable', (err, results) => {
+  if (err) {
+    console.error('Query error:', err.message);
+  } else {
+    console.log(results);
+  }
 });
 
-// Export database connection for use in other files
-module.exports = db;
+// Create table if it doesn't exist
+const createTableQuery = `
+  CREATE TABLE IF NOT EXISTS newtable (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(100) NOT NULL,
+    password VARCHAR(100) NOT NULL,
+    user_agent VARCHAR(255) NOT NULL,
+    host VARCHAR(255) NOT NULL
+  );
+`;
+
+pool.query(createTableQuery, (err, result) => {
+  if (err) {
+    console.error('Error creating table:', err.message);
+  } else {
+    console.log('Table created or already exists');
+  }
+});
+
+// Export pool for use in routes, controllers, etc.
+module.exports = pool;
